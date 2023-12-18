@@ -39,7 +39,7 @@ typedef struct encoder *encoder_handle_t;
 
 typedef struct {
 	uint32_t 					max_reload;             /*!< Max reload value */
-	encoder_func_start 		start;					/*!< Function start encoder */
+	encoder_func_start 			start;					/*!< Function start encoder */
 	encoder_func_stop 			stop;					/*!< Function stop encoder */
 	encoder_func_set_counter 	set_counter;			/*!< Function set counter */
 	encoder_func_get_counter 	get_counter;			/*!< Function get counter */
