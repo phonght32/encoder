@@ -22,12 +22,12 @@ encoder_handle_t encoder_init(void)
 	return handle;
 }
 
-err_code_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg)
+encoder_status_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
 	handle->max_reload = cfg.max_reload;
@@ -38,117 +38,117 @@ err_code_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg)
 	handle->get_counter = cfg.get_counter;
 	handle->set_mode = cfg.set_mode;
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_config(encoder_handle_t handle)
+encoder_status_t encoder_config(encoder_handle_t handle)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
 	/* Nothing to do */
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_start(encoder_handle_t handle)
+encoder_status_t encoder_start(encoder_handle_t handle)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
-	err_code_t err;
+	encoder_status_t err;
 
 	err = handle->start();
-	if (err != ERR_CODE_SUCCESS)
+	if (err != ENCODER_STATUS_SUCCESS)
 	{
 		return err;
 	}
 
 	handle->is_run = 1;
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_stop(encoder_handle_t handle)
+encoder_status_t encoder_stop(encoder_handle_t handle)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
-	err_code_t err;
+	encoder_status_t err;
 
 	err = handle->stop();
-	if (err != ERR_CODE_SUCCESS)
+	if (err != ENCODER_STATUS_SUCCESS)
 	{
 		return err;
 	}
 
 	handle->is_run = 0;
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_get_value(encoder_handle_t handle, uint32_t *value)
+encoder_status_t encoder_get_value(encoder_handle_t handle, uint32_t *value)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
-	err_code_t err;
+	encoder_status_t err;
 
 	err = handle->get_counter(value);
-	if (err != ERR_CODE_SUCCESS)
+	if (err != ENCODER_STATUS_SUCCESS)
 	{
 		return err;
 	}
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_set_value(encoder_handle_t handle, uint32_t value)
+encoder_status_t encoder_set_value(encoder_handle_t handle, uint32_t value)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
-	err_code_t err;
+	encoder_status_t err;
 
 	err = handle->set_counter(value);
-	if (err != ERR_CODE_SUCCESS)
+	if (err != ENCODER_STATUS_SUCCESS)
 	{
 		return err;
 	}
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }
 
-err_code_t encoder_set_mode(encoder_handle_t handle, uint8_t mode)
+encoder_status_t encoder_set_mode(encoder_handle_t handle, uint8_t mode)
 {
 	/* Check if handle structure is NULL */
 	if (handle == NULL)
 	{
-		return ERR_CODE_NULL_PTR;
+		return ENCODER_STATUS_INVALID_ARG;
 	}
 
-	err_code_t err;
+	encoder_status_t err;
 
 	err = handle->set_mode(mode);
-	if (err != ERR_CODE_SUCCESS)
+	if (err != ENCODER_STATUS_SUCCESS)
 	{
 		return err;
 	}
 
-	return ERR_CODE_SUCCESS;
+	return ENCODER_STATUS_SUCCESS;
 }

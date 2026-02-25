@@ -27,13 +27,19 @@
 extern "C" {
 #endif
 
-#include "err_code.h"
+#include "stdint.h"
 
-typedef err_code_t (*encoder_func_start)(void);
-typedef err_code_t (*encoder_func_stop)(void);
-typedef err_code_t (*encoder_func_set_counter)(uint32_t value);
-typedef err_code_t (*encoder_func_get_counter)(uint32_t *value);
-typedef err_code_t (*encoder_func_set_mode)(uint8_t mode);
+typedef enum {
+	ENCODER_STATUS_SUCCESS = 0,			/*!< Success */
+	ENCODER_STATUS_FAIL,				/*!< Fail */
+	ENCODER_STATUS_INVALID_ARG,			/*!< Invalid argument */	
+} encoder_status_t;
+
+typedef encoder_status_t (*encoder_func_start)(void);
+typedef encoder_status_t (*encoder_func_stop)(void);
+typedef encoder_status_t (*encoder_func_set_counter)(uint32_t value);
+typedef encoder_status_t (*encoder_func_get_counter)(uint32_t *value);
+typedef encoder_status_t (*encoder_func_set_mode)(uint8_t mode);
 
 typedef struct encoder *encoder_handle_t;
 
@@ -55,7 +61,7 @@ typedef struct {
  *
  * @return
  *      - Handle structure: Success.
- *      - Others:           Fail.
+ *      - Others: Failed.
  */
 encoder_handle_t encoder_init(void);
 
@@ -66,10 +72,10 @@ encoder_handle_t encoder_init(void);
  * @param   cfg Configuration structure.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg);
+encoder_status_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg);
 
 /*
  * @brief   Configure encoder to run.
@@ -77,10 +83,10 @@ err_code_t encoder_set_config(encoder_handle_t handle, encoder_cfg_t cfg);
  * @param 	handle Handle structure.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_config(encoder_handle_t handle);
+encoder_status_t encoder_config(encoder_handle_t handle);
 
 /*
  * @brief   Start encoder.
@@ -88,10 +94,10 @@ err_code_t encoder_config(encoder_handle_t handle);
  * @param   handle Handle structure.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_start(encoder_handle_t handle);
+encoder_status_t encoder_start(encoder_handle_t handle);
 
 /*
  * @brief   Stop encoder.
@@ -99,10 +105,10 @@ err_code_t encoder_start(encoder_handle_t handle);
  * @param   handle Handle structure.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_stop(encoder_handle_t handle);
+encoder_status_t encoder_stop(encoder_handle_t handle);
 
 /*
  * @brief   Get encoder counter value.
@@ -111,10 +117,10 @@ err_code_t encoder_stop(encoder_handle_t handle);
  * @param   value Counter value.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_get_value(encoder_handle_t handle, uint32_t *value);
+encoder_status_t encoder_get_value(encoder_handle_t handle, uint32_t *value);
 
 /*
  * @brief   Set encoder counter value.
@@ -123,10 +129,10 @@ err_code_t encoder_get_value(encoder_handle_t handle, uint32_t *value);
  * @param   value Counter value.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_set_value(encoder_handle_t handle, uint32_t value);
+encoder_status_t encoder_set_value(encoder_handle_t handle, uint32_t value);
 
 /*
  * @brief   Set mode counter.
@@ -135,10 +141,10 @@ err_code_t encoder_set_value(encoder_handle_t handle, uint32_t value);
  * @param 	mode Counter mode. 0: Up, 1: Down.
  *
  * @return
- *      - ERR_CODE_SUCCESS: Success.
- *      - Others:           Fail.
+ *      - ENCODER_STATUS_SUCCESS: Success.
+ *      - Others: Failed.
  */
-err_code_t encoder_set_mode(encoder_handle_t handle, uint8_t mode);
+encoder_status_t encoder_set_mode(encoder_handle_t handle, uint8_t mode);
 
 
 #ifdef __cplusplus
